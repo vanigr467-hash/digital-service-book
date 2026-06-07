@@ -14,10 +14,9 @@ from pymongo import MongoClient
 
 # ─── Try real MongoDB first ───────────────────────────────────────────────────
 try:
-    MONGO_URI = st.secrets["mongodb+srv://servicebookadmin:ServiceBook%402026@women-safety-cluster.qtarrsa.mongodb.net/?appName=women-safety-cluster"]
+    MONGO_URI = st.secrets["MONGO_URI"]
 except Exception:
-    MONGO_URI = os.environ.get("mongodb+srv://servicebookadmin:ServiceBook%402026@women-safety-cluster.qtarrsa.mongodb.net/?appName=women-safety-cluster", "mongodb://localhost:27017/")
-
+    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
 DB_NAME = "service_book_db"
 
 
@@ -172,9 +171,9 @@ def _try_connect():
         _real_db.employees.create_index("employee_id", unique=True)
         _real_db.audit_logs.create_index("timestamp")
         return _real_db
-    except Exception:
+    except Exception as e:
+        st.error(f"MongoDB Error: {e}")
         return None
-
 
 def get_db():
     """Return real MongoDB db or fall back to in-memory mock."""
