@@ -11,11 +11,12 @@ from datetime import datetime
 from pymongo import MongoClient
 
 
+
 # ─── Try real MongoDB first ───────────────────────────────────────────────────
 try:
-    MONGO_URI = st.secrets["mongodb+srv://servicebookadmin:ServiceBook@2026@women-safety-cluster.qtarrsa.mongodb.net/?appName=women-safety-cluster"]
+    MONGO_URI = st.secrets["mongodb+srv://servicebookadmin:ServiceBook%402026@women-safety-cluster.qtarrsa.mongodb.net/?appName=women-safety-cluster"]
 except Exception:
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+    MONGO_URI = os.environ.get("mongodb+srv://servicebookadmin:ServiceBook%402026@women-safety-cluster.qtarrsa.mongodb.net/?appName=women-safety-cluster", "mongodb://localhost:27017/")
 
 DB_NAME = "service_book_db"
 
