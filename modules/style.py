@@ -277,6 +277,8 @@ label,
     color: #0d1f3c !important;
     opacity: 1 !important;
 }
+                
+
     /* ── Buttons ── */
     .stButton > button {
         font-family: 'Source Sans 3', sans-serif !important;
@@ -405,3 +407,26 @@ label,
     }
     </style>
     """, unsafe_allow_html=True)
+
+
+st.markdown("""
+<style>
+@media (max-width: 768px) {
+
+    section[data-testid="stSidebar"] {
+        min-width: 280px !important;
+        max-width: 280px !important;
+    }
+
+    section[data-testid="stSidebar"] button {
+        font-size: 16px !important;
+        padding: 12px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .sidebar-header {
+        text-align: center;
+    }
+}
+</style>
+""", unsafe_allow_html=True)

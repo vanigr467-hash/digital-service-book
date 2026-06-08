@@ -72,9 +72,39 @@ with st.sidebar:
             st.rerun()
 
     st.markdown("---")
+    # Navigation menu
+    nav_items = {
+    "🏠 Dashboard": "Dashboard",
+    "👤 Employee Master": "Employee Registration",
+    "🔍 Search Employee": "Search",
+    "📝 Service Entries": "Service Entries",
+    "📁 Document Archive": "Document Archive",
+    "📖 View Service Book": "Service Book View",
+    "📊 Audit Trail": "Audit Trail",
+}
+
+page_names = list(nav_items.keys())
+
+current_label = next(
+    (label for label, value in nav_items.items()
+     if value == st.session_state.active_page),
+    page_names[0]
+)
+
+selected_page = st.selectbox(
+    "📋 Navigation",
+    options=page_names,
+    index=page_names.index(current_label)
+)
+
+st.session_state.active_page = nav_items[selected_page]
+
+
+
+
 
     # Quick employee selector (shown on relevant pages)
-    if st.session_state.active_page in ["Service Entries", "Service Book View", "Document Archive"]:
+if st.session_state.active_page in ["Service Entries", "Service Book View", "Document Archive"]:
         st.markdown('<p class="sidebar-section-label">Quick Select Employee</p>', unsafe_allow_html=True)
         employees = list(db.employees.find({}, {"employee_id": 1, "name": 1}))
         if employees:
@@ -85,8 +115,8 @@ with st.sidebar:
         else:
             st.info("No employees registered yet.")
 
-    st.markdown("---")
-    st.markdown(f"""
+st.markdown("---")
+st.markdown(f"""
     <div class="sidebar-footer">
         <span>👤 {st.session_state.current_user}</span><br/>
         <span style="font-size:0.7rem; opacity:0.6;">{datetime.now().strftime('%d %b %Y, %H:%M')}</span>
